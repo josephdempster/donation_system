@@ -1,0 +1,386 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<funds>
+	<fund searchstring="Tableegh">
+		<title>Tableegh</title>	
+		<description>https://www.world-federation.org/content/tableegh</description>
+		<department>Islamic Education</department>
+		<sum>variable</sum>
+		<qty>false</qty>
+		<attributes></attributes>
+		<type>Donation</type>
+	</fund>
+	<fund searchstring="Donate to Existing Further Education ZCSS Student">
+		<title>Donate to Existing Further Education ZCSS Student</title>	
+		<description>If you are an exisitng ZCSS donor (for Further Education) please donate via this page. For more information email zcss@world-federation.org.</description>
+		<department>ZCSS</department>
+		<sum>variable</sum>
+		<qty>false</qty>
+		<attributes>
+			<attribute>
+				<id>donor_no</id>
+				<type>textfield</type>
+				<title>Donor Number (if known)</title>
+				<defaultvalue></defaultvalue>
+				<required>false</required>
+				<adjustments></adjustments>
+			</attribute>
+			<attribute>
+				<id>allocate_new_student</id>
+				<type>checkbox</type>
+				<title>Please allocate me a new student</title>
+				<defaultvalue></defaultvalue>
+				<required>false</required>
+				<adjustments></adjustments>
+			</attribute>
+		</attributes>
+		<type>Donation</type>
+	</fund>
+	<fund>
+		<title>Donate to Existing Primary/Secondary Education ZCSS Student</title>	
+		<has_description>yes</has_description>
+		<description>If you are an exisitng ZCSS donor (for Primary or Seconday Education) please donate via this page. For more information email zcss@world-federation.org.</description>
+		<department>ZCSS</department>
+		<sum>variable</sum>
+		<qty>false</qty>
+		<attributes>
+			<attribute>
+				<id>donor_no</id>
+				<type>textfield</type>
+				<title>Donor Number (if known)</title>
+				<defaultvalue></defaultvalue>
+				<required>false</required>
+				<adjustments></adjustments>
+			</attribute>
+			<attribute>
+				<id>allocate_new_student</id>
+				<type>Checkbox</type>
+				<title>Please allocate me a new student</title>
+				<defaultvalue></defaultvalue>
+				<required>false</required>
+				<adjustments></adjustments>		
+			</attribute>
+		</attributes>
+		<type>Donation</type>
+	</fund>
+	<fund>
+		<title>Sponsor A New Further Education Student</title>	
+		<description>https://www.world-federation.org/content/further-education</description>
+		<department>ZCSS</department>
+		<sum>55.00</sum>
+		<qty>True</qty>
+		<attributes></attributes>
+		<type>Donation</type>
+	</fund>
+	<fund>
+		<title>Sponsor A New Primary/Secondary Student</title>	
+		<description>https://www.world-federation.org/content/primary-and-secondary-education</description>
+		<department>ZCSS</department>
+		<sum>10.00</sum>
+		<qty>True</qty>
+		<attributes></attributes>
+		<type>Donation</type>
+	</fund>
+	<fund>
+		<title>Medical Help to the Poor</title>	
+		<description>The World Federation runs Primary Health Care Clinics in Bangalore, Lucknow, Potenahalli and Patna, where the poor are given medical help when required and are educated in hygiene and preventative measures.</description>
+		<department>Health</department>
+		<sum>variable</sum>
+		<qty>false</qty>
+		<attributes></attributes>
+		<type>Donation</type>
+	</fund>
+	<fund>
+		<title>Eye Clinics</title>	
+		<description>https://www.world-federation.org/content/eye-clinics</description>
+		<department>Health</department>
+		<sum>variable</sum>
+		<qty>false</qty>
+		<attributes></attributes>
+		<type>Donation</type>
+	</fund>
+	<fund>
+		<title>Health Centres</title>	
+		<description>https://www.world-federation.org/content/health-centres</description>
+		<department>Health</department>
+		<sum>variable</sum>
+		<qty>false</qty>
+		<attributes></attributes>
+		<type>Donation</type>
+	</fund>
+	<fund>
+		<title>Sadqa</title>	
+		<description>https://www.world-federation.org/donate/fund_information#SADAQA</description>
+		<department>Religious Dues</department>
+		<sum>variable</sum>
+		<qty>false</qty>
+		<attributes></attributes>
+		<type>Religious Due</type>
+	</fund>
+	<fund>
+		<title>Qurbani: Sadqa</title>	
+		<description>https://www.world-federation.org/donate/fund_information#QURBANI-SADQA</description>
+		<department>Religious Dues</department>
+		<sum>27.50</sum>
+		<qty>true</qty>
+		<attributes></attributes>
+		<type>Religious Due</type>
+	</fund>
+	<fund>
+		<title>Fidya</title>	
+		<description>https://www.world-federation.org/donate/fund_information#FIDYAKAFFARA</description>
+		<department>Religious Dues</department>
+		<sum>1.50</sum>
+		<qty>true</qty>
+		<attributes></attributes>
+		<type>Religious Due</type>
+	</fund>
+	<fund>
+		<title>Fitra</title>	
+		<description>https://www.world-federation.org/donate/fund_information#FITRA</description>
+		<department>Religious Dues</department>
+		<sum>variable</sum>
+		<qty>true</qty>
+		<attributes></attributes>
+		<type>Religious Due</type>
+	</fund>
+	<fund>
+		<title>Kaffara</title>	
+		<description>https://www.world-federation.org/donate/fund_information#FIDYAKAFFARA</description>
+		<department>Religious Dues</department>
+		<sum>90.00</sum>
+		<qty>true</qty>
+		<attributes></attributes>
+		<type>Religious Due</type>
+	</fund>
+	<fund>
+		<title>Radde Mazalim</title>	
+		<description>https://www.world-federation.org/donate/fund_information#QADHAAROZA</description>
+		<department>Religious Dues</department>
+		<sum>variable</sum>
+		<qty>false</qty>
+		<attributes></attributes>
+		<type>Religious Due</type>
+	</fund>
+	<fund>
+		<title>Zakat</title>	
+		<description>https://www.world-federation.org/donate/fund_information#ZAKAT</description>
+		<department>Religious Dues</department>
+		<sum>variable</sum>
+		<qty>false</qty>
+		<attributes></attributes>
+		<type>Religious Due</type>
+	</fund>
+	<fund>
+		<title>Zakat Al-Fitrah</title>	
+		<description>https://www.world-federation.org/donate/fund_information#ZAKATALFITRAH</description>
+		<department>Religious Dues</department>
+		<sum>variable</sum>
+		<qty>false</qty>
+		<attributes></attributes>
+		<type>Religious Due</type>
+	</fund>
+	<fund>
+		<title>Qaza Rosa</title>	
+		<description>https://www.world-federation.org/donate/fund_information#QADHAAROZA</description>
+		<department>Religious Dues</department>
+		<sum>110.00</sum>
+		<qty>true</qty>
+		<attributes></attributes>
+		<type>Religious Due</type>
+	</fund>
+	<fund>
+		<title>Qaza Namaz</title>	
+		<description>https://www.world-federation.org/donate/fund_information#QADHAANAMAZ</description>
+		<department>Religious Dues</department>
+		<sum>variable</sum>
+		<qty>true</qty>
+		<attributes></attributes>
+		<type>Religious Due</type>
+	</fund>
+	<fund>
+		<title>Qurbani: Aqiqua</title>	
+		<description>https://www.world-federation.org/donate/fund_information#QURBANI-AQIQA</description>
+		<department>Religious Dues</department>
+		<sum>27.50</sum>
+		<qty>true</qty>
+		<attributes></attributes>
+		<type>Religious Due</type>
+	</fund>
+	<fund>
+		<title>Khums</title>	
+		<description>https://www.world-federation.org/donate/fund_information#Khums</description>
+		<department>Religious Dues</department>
+		<sum>variable</sum>
+		<qty>false</qty>
+		<attributes></attributes>
+		<type>Religious Due</type>
+	</fund>
+	<fund>
+		<title>Khums Sehme Imam A.S</title>	
+		<description>https://www.world-federation.org/donate/fund_information#KhumsSehmeImam</description>
+		<department>Religious Dues</department>
+		<sum>variable</sum>
+		<qty>false</qty>
+		<attributes></attributes>
+		<type>Religious Due</type>
+	</fund>
+	<fund>
+		<title>Khums Sehme Sadat</title>	
+		<description>https://www.world-federation.org/donate/fund_information#KhumsSehmeSadat</description>
+		<department>Religious Dues</department>
+		<sum>variable</sum>
+		<qty>false</qty>
+		<attributes></attributes>
+		<type>Religious Due</type>
+	</fund>
+	<fund>
+		<title>General Fund</title>	
+		<description>This fund will give us flexibility and allow us to use funds where needed most.</description>
+		<department>Other</department>
+		<sum>variable</sum>
+		<qty>false</qty>
+		<attributes></attributes>
+		<type>Donation</type>
+	</fund>
+	<fund>
+		<title>Foundation Fund</title>	
+		<description>https://www.world-federation.org/donate/fund_information#FOUNDATIONFUND</description>
+		<department>Other</department>
+		<sum>variable</sum>
+		<qty>false</qty>
+		<attributes></attributes>
+		<type>Donation</type>
+	</fund>
+	<fund>
+		<title>Emergency Appeal</title>	
+		<description>The emergency relief fund allows The World Federation Relief department to apportion fund as necessary to deal with international crises and emergencies.</description>
+		<department>Relief</department>
+		<sum>variable</sum>
+		<qty>false</qty>
+		<attributes></attributes>
+		<type>Donation</type>
+	</fund>
+	<fund>
+		<title>Ali Asghar Water Appeal</title>	
+		<description>https://www.world-federation.org/content/ali-asghar-water-appeal</description>
+		<department>Relief</department>
+		<sum>variable</sum>
+		<qty>false</qty>
+		<attributes></attributes>
+		<type>Donation</type>
+	</fund>
+	<fund>
+		<title>Widows and Orphans</title>	
+		<description>https://www.world-federation.org/donate/fund_information#WIDOWSORPHANS</description>
+		<department>Other</department>
+		<sum>variable</sum>
+		<qty>false</qty>
+		<attributes></attributes>
+		<type>Donation</type>
+	</fund>
+	<fund>
+		<title>Fill My Cup - Back to School Appeal</title>	
+		<description>https://www.world-federation.org/content/fill-my-cup-appeal-back-school-campaign</description>
+		<department>Relief</department>
+		<sum>variable</sum>
+		<qty>false</qty>
+		<attributes></attributes>
+		<type>Donation</type>
+	</fund>
+	<fund>
+		<title>Sponsor a Senior</title>	
+		<description></description>
+		<department>Relief</department>
+		<sum>variable</sum>
+		<qty>false</qty>
+		<attributes></attributes>
+		<type>Donation</type>
+	</fund>
+	<fund>
+		<title>Hadith-e-Kisa Blanket Drive</title>	
+		<description>https://www.world-federation.org/content/hadith-e-kisa-blanket-drive</description>
+		<department>Relief</department>
+		<sum>variable</sum>
+		<qty>false</qty>
+		<attributes></attributes>
+		<type>Donation</type>
+	</fund>
+	<fund>
+		<title>Economic Development</title>	
+		<description>https://www.world-federation.org/content/economic-development-programme</description>
+		<department>Relief</department>
+		<sum>variable</sum>
+		<qty>false</qty>
+		<attributes></attributes>
+		<type>Donation</type>
+	</fund>
+	<fund>
+		<title>Education Loan Repayment</title>	
+		<description>https://www.world-federation.org/content/education-loan-repayment</description>
+		<department>Relief</department>
+		<sum>variable</sum>
+		<qty>false</qty>
+		<attributes>
+			<attribute>
+				<id>1</id>
+				<type>Select options</type>
+				<title>Select Your Loan Type</title>
+					<options>
+						<option>
+							<id>1</id>
+							<title>Australian Loan</title>
+							<adjustment></adjustment>
+						</option>
+						<option>
+							<id>2</id>
+							<title>Ebrahim Jaffer Ebrahim Loan</title>
+							<adjustment></adjustment>
+						</option>
+						<option>
+							<id>3</id>
+							<title>Hiridjee Loan</title>
+							<adjustment></adjustment>
+						</option>
+						<option>
+							<id>4</id>
+							<title>Walji Pradhan Loan</title>
+							<adjustment></adjustment>
+						</option>
+						<option>
+							<id>5</id>
+							<title>World Federation Loan</title>
+							<adjustment></adjustment>
+						</option>
+					</options>
+			</attribute>
+		</attributes>
+		<type>Repayment</type>
+	</fund>
+	<fund>
+		<title>Who Is Hussain</title>	
+		<description></description>
+		<department>Islamic Education</department>
+		<sum>variable</sum>
+		<qty>false</qty>
+		<attributes></attributes>
+		<type>Donation</type>
+	</fund>
+	<fund>
+		<title>Ramadhan Relief</title>	
+		<description></description>
+		<department>Relief</department>
+		<sum>variable</sum>
+		<qty>false</qty>
+		<attributes></attributes>
+		<type>Donation</type>
+	</fund>
+	<fund>
+		<title>Yemen Sponsorship Scheme</title>	
+		<description>https://www.world-federation.org/content/yemen-appeal</description>
+		<department>Relief</department>
+		<sum>variable</sum>
+		<qty>false</qty>
+		<attributes></attributes>
+		<type>Donation</type>
+	</fund>
+</funds>
