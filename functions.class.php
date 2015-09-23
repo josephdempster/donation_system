@@ -148,13 +148,13 @@ class functions {
 				
 					switch($attributes['type']) {
 						case "textfield":
-							echo "<label>".$attributes['title']."</label>&nbsp;<input type='text' class='attribute' name='attribute[".$attributes['machine_name']."]' id='textfield'><br><br>";
+							echo "<label>".$attributes['title']."</label>&nbsp;<input type='text' class='attribute textbox' name='".$attributes['machine_name']."' id='textfield'><br><br>";
 						break;
 						case "checkbox":
-							echo "<label>".$attributes['title']."</label>&nbsp;<input type='checkbox' class='attribute' value=".$funds['name']." name='".$attributes['machine_name']."'><br><br>";
+							echo "<label>".$attributes['title']."</label>&nbsp;<input type='checkbox' class='attribute checkbox' value='".$funds['name']."' name='".$attributes['machine_name']."'><br><br>";
 						break;
 						case "select options":
-							echo "<label>".$attributes['title']."</label>&nbsp;<select class='attribute' name='".$attributes['machine_name']."[]'>";
+							echo "<label>".$attributes['title']."</label>&nbsp;<select class='attribute selectbox' name='".$attributes['machine_name']."[]'>";
 							foreach($this->options as $options) {
 								if($options['parent_id'] == $attributes['attribute_id']) {
 									echo "<option>".$options['title']."</option>";
@@ -190,15 +190,12 @@ class functions {
 		$title = $_POST['title'];
 		$sum = $_POST['sum'];
 		$qty = $_POST['quantity'];
-		$attrib = serialize($_POST['attribute']);
+		$attrib = serialize($_POST['attribute']);	
 		
-		var_dump($_POST);
-		
-		
+			
 		$sql = "INSERT INTO cart (payment, sum, quantity, attributes, session) VALUES (?,?,?,?,?)";
 		$query = $this->db->prepare($sql);
-		$query->execute(array($title, $sum, $qty, $attrib, $session));
-				
+		$query->execute(array($title, $sum, $qty, $attrib, $session));				
 		}
 		
 		//fetch cart
@@ -366,8 +363,20 @@ class functions {
 			<orderLines class='com.secpay.seccard.OrderLine'>
 				<orderLine>";
 				foreach ($this->cart as $cart) {
+				
 					$attrib = unserialize($cart['attributes']);
-					echo "<prod_code>".$cart['payment']."-</prod_code>";
+					
+					echo "<prod_code>";
+					echo $cart['payment'];
+					echo " (";
+					//This is where we echo out our attributes
+					foreach($attrib as $key => $value) {
+						echo $key;
+						echo ": ";
+						echo $value;
+						echo ", ";
+					}
+					echo")</prod_code>";
 					echo "<item_amount>".$cart['sum']."</item_amount>";
 					echo "<item_amount>".$cart['quantity']."</item_amount>";
 					

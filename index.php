@@ -271,8 +271,33 @@ ob_start('mb_output_handler');
 			var title = $( this ).siblings( "#fund_title" ).val();
 			var amount = $( this ).siblings( "#appeal-amount" ).val();
 			var quantity = $( this ).siblings( "#fund_quantity" ).val();
-			var attributes = $( this ).siblings( ".attribute" ).val();
+		//	var attribute_name = $( this ).siblings( ".attribute" ).attr("name");
+		//	var attribute_value = $( this ).siblings( ".attribute" ).val();
+		
+			var attributes = {};
 			
+			$( this ).siblings( ".attribute" ).each(function(e) {
+			
+						
+				var	attribute_name = $(this).attr('name');
+				var	attribute_value = $(this).val();
+				
+				// Having to do this because jQuery fucking sucks and doesn't return the checkboxes state as a bool in val() Clearly this is Obama's fault ;)
+				
+				if ($(this).attr('class') == "attribute checkbox") {
+					var	attribute_value = $(this).is(':checked');
+				}
+				
+				attributes[attribute_name] = attribute_value;
+				
+			});
+			
+			console.log(attributes);
+			
+	//		var attributes = {};
+	//		attributes[attribute_name] = attribute_value;
+			
+						
 			
 			$('#my-payments').show();			
 			$('#your-payments').show();
@@ -285,7 +310,7 @@ ob_start('mb_output_handler');
 				$.ajax({
 					type: "POST",
 					url: "add_payment.php",
-					data: {title:title, sum:amount, quantity:quantity},
+					data: {title:title, sum:amount, quantity:quantity, attribute:attributes},
 					cache: false,
 					success: function(html) {
 					$("#my-payments").html(html);
