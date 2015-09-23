@@ -1,10 +1,19 @@
-<?php
+<?php 
+if (!isset($_COOKIE['currency'])) {
+	$_COOKIE['currency'] = "GBP";
+	$_COOKIE['currency_symbol'] = "£";
+} 
+
+
+
 mb_internal_encoding('UTF-8');
 mb_http_output('UTF-8');
 mb_http_input('UTF-8');
 mb_language('uni');
 mb_regex_encoding('UTF-8');
 ob_start('mb_output_handler');
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -74,7 +83,7 @@ ob_start('mb_output_handler');
 		</form>
 		</div>
 		</section>
-		<div id="centerfold" style="margin-left:auto; margin-right:auto;">			
+		<div id="centerfold" style="margin-left:auto; margin-right:auto; margin-bottom:50%;">			
 		<section id="search-fund">
 		<h3 id="make-donation-heading">Make a donation or payment</h3>
 		<form action="#" method="POST">
@@ -84,7 +93,11 @@ ob_start('mb_output_handler');
 		</ul>
 		</form>
 		<br>
-		<div id="results"></div>
+		<!-- DO NOT REMOVE THIS, IT'S A SETTER ELEMENT FOR THE CURRENCY. WITHOUT IT CURRENCY WONT CHANGE! -->
+		<div id="satay" style="visibility:hidden;">£</div>
+		<div id="results">
+		
+		</div>
 			<a href="#" id="show-all" style="">Show all Donations or Payments</a>
 		<a href="#" id="hide-link" style="display:none;">Hide Donations or Payments</a>
 		<br><br>	
@@ -102,12 +115,19 @@ ob_start('mb_output_handler');
 		<form action="send_paypoint.php" method="POST">
 		<input type="hidden" name="cart_id" value="<?php echo session_id(); ?>">
 		<input type="hidden" name="currency" value="<?php if (isset($_COOKIE['currency'])) { echo $_COOKIE['currency']; } else { echo 'GBP'; } ?>">
-		<h3>Total: <div id="symbol" style="display:inline"><?php if (isset($_COOKIE['currency_symbol'])) { echo $_COOKIE['currency_symbol']; } else { echo '£'; } ?></div><?php echo($cart->total_sum); ?></h3><br>
+		<h3>Total: <div class="symbol" style="display:inline"><?php if (isset($_COOKIE['currency_symbol'])) { echo $_COOKIE['currency_symbol']; } else { echo '£'; } ?></div><div id="total" style="display:inline;"><?php echo($cart->total_sum); ?></div></h3><br>
 		<input type="submit" id="make-payment" value="Make Payment" style="">
-		</div>
-		
 		</form>
 		<br><br>
+		<form action="send_paypal.php" method="POST">
+		<input type="hidden" name="cart_id" value="<?php echo session_id(); ?>">
+		<input type="hidden" name="currency" value="<?php if (isset($_COOKIE['currency'])) { echo $_COOKIE['currency']; } else { echo 'GBP'; } ?>">
+		<input type="submit" id="make-payment" value="Pay with PayPal" style="">
+		</form>
+		<br><br>
+		</div>		
+		
+		
 		</section>
 		</div>
 		</div>
@@ -123,7 +143,40 @@ ob_start('mb_output_handler');
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.appear/0.3.3/jquery.appear.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
 	<script>
+	
 
+	$(document).on( "change", "select#currency", function() {
+			
+			currency_code = $(this).val();
+			$("#satay").text(currency_code);
+			
+			text = $("#satay").text();		
+		    
+				
+			
+			if (text == "GBP") {				
+				$("#satay").siblings("#results").children("#appeal-box").children(".symbol").text('£');
+			} else if (text == "USD") {				
+				$("#satay").siblings("#results").children("#appeal-box").children(".symbol").text('$');
+			} else if (text == "EUR") {
+				$("#satay").siblings("#results").children("#appeal-box").children(".symbol").text('€');				
+			}
+			
+			$("#sataybtm").text(currency_code);
+				textbtm = $("#sataybtm").text();
+				
+			if (textbtm == "GBP") {				
+				$("#sataybtm").siblings(".add-form").children("#paymentrow").children(".symbol").text('£');
+			} else if (textbtm == "USD") {				
+				$("#sataybtm").siblings(".add-form").children("#paymentrow").children(".symbol").text('$');
+			} else if (textbtm == "EUR") {
+				$("#sataybtm").siblings(".add-form").children("#paymentrow").children(".symbol").text('€');				
+			}
+			
+		
+			
+			
+		});
 		
 		
 		$( document ).on( "input", "input#appeal-amount", function() {
@@ -145,6 +198,8 @@ ob_start('mb_output_handler');
 				  $( this ).siblings( "#add-to-payments" ).prop( "disabled", true);				  
 				  $( this ).siblings( "#error" ).text( "That doesn't look like a valid amount, Please try again in the format 10.00" );
 				}
+				
+					
 		});
 		
 		$( document ).on( "input", "input#my_payments_input", function() {
@@ -177,14 +232,18 @@ ob_start('mb_output_handler');
 		
 			if (currency_string == "GBP") {
 				$.cookie("currency_symbol","£");
+				$(".symbol").val("£");
 			} else if (currency_string == "USD") {
 				$.cookie("currency_symbol","$");
+				$(".symbol").val("$");
 			} else if (currency_string == "EUR") {
-				$.cookie("currency_symbol","€");				
+				$.cookie("currency_symbol","€");
+				$(".symbol").val("€");
 			}
-		location.reload(true);
+	//	location.reload(true);
 		});
 		
+
 		
 		$( document ).on( "click", "a.title", function() {
 			
@@ -212,7 +271,14 @@ ob_start('mb_output_handler');
 			var title = $( this ).siblings( "#fund_title" ).val();
 			var amount = $( this ).siblings( "#appeal-amount" ).val();
 			var quantity = $( this ).siblings( "#fund_quantity" ).val();
-			$('#my-payments').show();
+			var attributes = $( this ).siblings( ".attribute" ).val();
+			
+			
+			$('#my-payments').show();			
+			$('#your-payments').show();
+			$('.total-wrap').show();
+			
+			
 				
 			
 		//		if (search_string !==""){
@@ -223,6 +289,15 @@ ob_start('mb_output_handler');
 					cache: false,
 					success: function(html) {
 					$("#my-payments").html(html);
+					}
+				});
+				
+				$.ajax({
+					type: "POST",
+					url: "get_total.php",					
+					cache: false,
+					success: function(html) {
+					$("#total").html(html);
 					}
 				});
 				
@@ -350,15 +425,26 @@ ob_start('mb_output_handler');
 		
 		
 		$(document).ready(function() {
-		var added = $('#my-payments').html();
 		
-		if (added == "") {
+		var form_exists = $(".add-form").length;
+		alert 
+		if (form_exists == 0) {
 			$('#my-payments').hide();
 			$('#your-payments').hide();
-		//	$('.total-wrap').hide();
+			$('.total-wrap').hide();
 		}
+		
+		$.ajax({
+					type: "POST",
+					url: "get_total.php",					
+					cache: false,
+					success: function(html) {
+					$("#total").html(html);
+					}
+				});
 
 		});
+		
 		
 		
 	

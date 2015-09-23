@@ -6,6 +6,7 @@ class functions {
 	protected $attributes;
 	public $total_sum;
 	public $currency;
+	public $grndtotal;
 	
 	public function __construct() {
 		//Connect to MySQL
@@ -102,7 +103,12 @@ class functions {
 			
 			//Is sum variable? If so display a text box. 
 			if ($funds['sum'] == "variable") {
-				echo "<label for='appeal-amount'>Payment</label><br><span id='symbol' style='position:relative; left: 4%; top: 38px;'>".$_COOKIE['currency_symbol']."</span><input type='text' name='sum' value='0.00' id='appeal-amount' class=".$funds['fund_id']."><br><br>"; 
+				echo "<label for='appeal-amount'>Payment</label><br><span class='symbol' style='position:relative; left: 4%; top: 38px;'>";
+				if (isset($_COOKIE['currency_symbol'])) { 
+				echo $_COOKIE['currency_symbol']; } else { 
+				echo '£'; 
+				}
+				echo "</span><input type='text' name='sum' value='0.00' id='appeal-amount' class=".$funds['fund_id']."><br><br>"; 
 				echo "<span id='error' class=".$funds['fund_id']."></span><br><br>";
 			} else {
 			//otherwise show as a hidden field
@@ -142,13 +148,13 @@ class functions {
 				
 					switch($attributes['type']) {
 						case "textfield":
-							echo "<label>".$attributes['title']."</label>&nbsp;<input type='text' name='attribute[]' id='textfield'><br><br>";
+							echo "<label>".$attributes['title']."</label>&nbsp;<input type='text' class='attribute' name='attribute[".$attributes['machine_name']."]' id='textfield'><br><br>";
 						break;
 						case "checkbox":
-							echo "<label>".$attributes['title']."</label>&nbsp;<input type='checkbox' value=".$funds['name']." name='".$attributes['machine_name']."[]'><br><br>";
+							echo "<label>".$attributes['title']."</label>&nbsp;<input type='checkbox' class='attribute' value=".$funds['name']." name='".$attributes['machine_name']."'><br><br>";
 						break;
 						case "select options":
-							echo "<label>".$attributes['title']."</label>&nbsp;<select name='".$attributes['machine_name']."[]'>";
+							echo "<label>".$attributes['title']."</label>&nbsp;<select class='attribute' name='".$attributes['machine_name']."[]'>";
 							foreach($this->options as $options) {
 								if($options['parent_id'] == $attributes['attribute_id']) {
 									echo "<option>".$options['title']."</option>";
@@ -166,7 +172,7 @@ class functions {
 		}		
 	}
 	
-	public function addPayment() {
+	public function addPayment($switch) {
 	
 	/*
 	*
@@ -186,6 +192,8 @@ class functions {
 		$qty = $_POST['quantity'];
 		$attrib = serialize($_POST['attribute']);
 		
+		var_dump($_POST);
+		
 		
 		$sql = "INSERT INTO cart (payment, sum, quantity, attributes, session) VALUES (?,?,?,?,?)";
 		$query = $this->db->prepare($sql);
@@ -193,7 +201,7 @@ class functions {
 				
 		}
 		
-		//fetch 
+		//fetch cart
 		$sql = "SELECT * FROM cart WHERE session = ?";
 		$query = $this->db->prepare($sql);
 		$query->execute(array(session_id()));
@@ -201,20 +209,33 @@ class functions {
 		
 	
 		// $this->total_sum = array_sum($this->cart['sum']);
-		
+		if (empty($switch)) {
+			echo "<div id='sataybtm' style='visibility:hidden;'>£</div>";
+		}
 		
 		foreach ($this->cart as $cart) {
-			echo "<form action='index.php' method='POST'>";
+			if (empty($switch)) {
+			echo "<form action='index.php' class='add-form' method='POST'>";
 			echo "<input type='hidden' name='cart_id' value=".$cart['cart_id'].">";
 			echo "<input type='hidden' name='session' value=".$cart['session'].">";
-			echo "<div class='row'><div class='col-md-9'><h3>".$cart['payment']."</h3></div>";
+			echo "<div class='row' id='titlerow'><div class='col-md-9'><h3>".$cart['payment']."</h3></div>";
 			echo "<div class='col-md-3'><input type='submit' name='delete' value='X' id='remove-payment' style='height:30px; width: 65%; margin-top: 15px;'></div></div><br>";
-			echo "<div class='row'><span id='error' class=''></span><br><label for='my_payments_input'>Payment</label><span id='symbol' style='position:relative; right: 10%; top: 41px; z-index: 9999;'>".$_COOKIE['currency_symbol']."</span><br><input type='text' name='update_sum' id='my_payments_input' class='col-md-7' value=".$cart['sum'].">";			
+			echo "<div class='row' id='paymentrow'><span id='error' class=''></span><br><label for='my_payments_input'>Payment</label><span class='symbol' style='position:relative; right: 10%; top: 41px; z-index: 9999;'>";
+			if (isset($_COOKIE['currency_symbol'])) { 
+			echo $_COOKIE['currency_symbol']; } else {
+			echo '£'; 
+			}
+			echo "</span><br><input type='text' name='update_sum' id='my_payments_input' class='col-md-7' value=".$cart['sum'].">";			
 			echo "<input type='submit' class='col-md-3' name = 'update' value='Update' id='update-payment'></div><br>";
 			echo "</form>";
-			$this->total_sum = $this->total_sum + $cart['sum'];
+			} else {			
+			$this->total_sum = $this->total_sum + $cart['sum'];			
+			}
+			
 			
 		}
+		
+		
 	}
 	
 	public function getTotal() {
@@ -225,7 +246,7 @@ class functions {
 	*
 	*/
 	
-		echo $this->total_sum;
+		
 		
 	}
 		
@@ -361,7 +382,68 @@ class functions {
 		
 		echo "<input type='hidden' name='template' value='http://www.secpay.com/users/worldf01/paypoint_temp.html'>"; 
 
-		echo "<input type='submit' value='Pay With Paypoint'>";
+		
+		echo "</form>";
+		} else {
+		echo "Error: No valid session detected, Please go back to the <a href='index.php'>homepage</a> and try to make your payment again. We apologise for any inconvenience.";
+		}
+		
+	}
+	
+		function formatPaypal() {
+	
+	/*
+	*
+	*  Takes database and session values and commits to a form that can be submitted to PayPal for processing
+	*
+	*/
+	
+		$sql = "SELECT session FROM cart WHERE session = ? LIMIT 1";
+		$query = $this->db->prepare($sql);
+		$query->execute(array($_POST['cart_id']));
+		$this->cart = $query->fetchAll();
+		
+		foreach($this->cart as $cart) {
+			$session = $cart['session'];
+		}
+					
+		if (!empty($session)) {
+			/*
+			$merchant = "worldf01";
+			$trans_id = md5(mktime());
+			$trans_id = substr($trans_id,0,10);		
+			*/
+			//echo $trans_id;
+			
+		$sql = "SELECT * FROM cart WHERE session = ?";
+		$query = $this->db->prepare($sql);
+		$query->execute(array($_POST['cart_id']));
+		$this->cart = $query->fetchAll();	
+		
+		foreach ($this->cart as $cart) {			
+			$this->total_sum = $this->total_sum + $cart['sum'];			
+		}
+		
+						
+		
+		// echo($digest);
+		echo "<form action='https://www.sandbox.paypal.com/cgi-bin/webscr' id='submit_paypal' method='POST'>";
+		echo "<input type='hidden' name='business' value='josephd@world-federation.org'>";
+		echo "<INPUT TYPE='hidden' name='cmd' value='_xclick'>";
+		echo "<INPUT TYPE='hidden' name='currency_code' value='".$_POST['currency']."'>";
+		
+		
+		foreach ($this->cart as $cart) {
+					$attrib = unserialize($cart['attributes']);
+					
+					echo "<INPUT TYPE='hidden' name='item_name' value='".$cart['payment']."'>";
+					echo "<INPUT TYPE='hidden' name='amount' value='".$cart['sum']."'>";
+					echo "<INPUT TYPE='hidden' name='quantity' value='".$cart['quantity']."'>";
+					
+				}	
+		
+
+		
 		echo "</form>";
 		} else {
 		echo "Error: No valid session detected, Please go back to the <a href='index.php'>homepage</a> and try to make your payment again. We apologise for any inconvenience.";

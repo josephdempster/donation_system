@@ -30,50 +30,19 @@ ob_start('mb_output_handler'); ?>
   </head>
 	
   <body>
-  <div class="container-fluid">
-  <div class="row" id="global-header">
-<br>
-<div class="col-md-5" style="margin-left:7%">
-<ul id="ddmenu-root">	
-	<li class="ddmenu-item">Community</li>
-	<li class="ddmenu-item">Relief</li>	
-	<li class="ddmenu-item">Islamic Education</li>
-	<li class="ddmenu-item">MCE</li>
-	<li class="ddmenu-item">Secetariat Documents</li>
-</ul>
-</div>
-<div class="col-md-1" style="padding-left: 0px;"><div id="icon-pad"><img src="https://www.world-federation.org/wf_images/home.png">&nbsp;&nbsp;<img src="https://www.world-federation.org/wf_images/basket.png">&nbsp;&nbsp;<img src="https://www.world-federation.org/wf_images/user.png"></div></div>
-<div class="col-md-2" style="padding-left: 30px;"><div id="search-pad"><form action="#" method="POST"><input type="text"></div></form></div>
-<div class="col-md-2" style="padding-left: 30px;"><img src="https://www.world-federation.org/wf_images/top.png" style="position:relative; bottom: 20px;"></div>
-<br>  
+  <center><img src="http://www.bupa.co.uk/Assets/Global/Components/Img/ajax-loader.gif"></center>
 
-	</div>
-	<div class="row" id="logo-strip" style="margin-left:10%">
-		<img src="images/logi.png">
-	</div>
-</div>
-<div class="container-fluid" id="main-body">
-	<div class="row">
-		<div class="col-md-4"><br /></div>
-		<div class="col-md-4" id="centerfold">
-		<br>
 <?php 
 	require_once("functions.class.php");
 	$cart = new functions;
 	@$cart->formatPaypoint();				
 ?>
-</div>
-<div class="col-md-4"><br /></div>
-</div>
+
 <script type="text/javascript">
 window.onload = function(){
   document.forms['submit_paypoint'].submit();
 }
 </script>
-   <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="bootstrap/js/bootstrap.min.js"></script>
-	<script src="https://code.jquery.com/ui/1.11.3/jquery-ui.min.js"></script>
+
 	</body>
 </html>
